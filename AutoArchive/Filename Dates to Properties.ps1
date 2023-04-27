@@ -1,6 +1,6 @@
 Param 
     (
-        [Parameter(Mandatory=$true)][string]$baseFolder,                # The folder the files are going to be moved from
+        [Parameter(Mandatory=$true)][string]$baseFolder,                    # The folder of the files that are going to be processed
         [switch]$setDatesFromFilename,                                      # Sets the dates from the filename - makes the assumption that the first ten characaters are the ISO date Standard YYYY-MM-DD
         [switch]$copyDates,                                                 # Copies Modified Date (Last Write Time) to Creation Date
         [switch]$dryRun                                                     # Does not perform the action, only outputs the log reference
