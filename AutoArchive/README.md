@@ -20,7 +20,7 @@ This script is **mostly** complete; it accepts several inputs as outlined below 
 
 ## To Do
 -   Exclusions for paths
-    -   Based ignore type system as a file
+    -   Based .gitignore type system as a file
 
 # Filename Dates to Properties
 
@@ -37,7 +37,3 @@ This script takes the first ten digits of the filename, checking to see if they 
 | setDatesFromFilename | Sets the dates from the filename - makes the assumption that the first ten characaters are the ISO date Standard YYYY-MM-DD |
 | copyDates | Copies Modified Date (Last Write Time) to Creation Date |
 | dryRun | Does not perform the action, only outputs the log reference |
-
-## To Do
--   Exclusions for paths
-    -   Based ignore type system as a file
