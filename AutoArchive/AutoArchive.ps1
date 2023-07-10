@@ -19,6 +19,11 @@ Param
 
 .DESCRIPTION
 
+.TODO
+    - Remove Empty Folders option to remove any empty folders it comes across
+    - Remove Root Option to remove the root IF EMPTY upon file completion
+    - Exclusions based upon filepath and ultimatly ideally regex/wildcard style ideally in a gitignore type format, perhaps an .archiverules file into the root folder that can be read for instructions
+
 .PARAMETER <Parameter_Name>
   <Brief description of parameter input required. Repeat this attribute if required>
 
@@ -26,7 +31,7 @@ Param
     Parameters for to and from folders, and the file age to move
     
 .OUTPUTS
-    Adding/Removing group memberships in AD
+    Moving Folders/Files from one location to another
   
 .NOTES
   Version:        0.1
@@ -107,7 +112,7 @@ else
 Write-Log "Testing To Folder"
 if(-not (Test-Path -Path $toFolder))
 {
-    Write-Log "From Folder ($toFolder) Does Not Exist, Attempting to Create"
+    Write-Log "To Folder ($toFolder) Does Not Exist, Attempting to Create"
     try 
     {
         if (!$dryRun)
@@ -142,6 +147,24 @@ foreach ($item in (Get-ChildItem -Path $fromFolder -Recurse | Where-Object {$_.L
     $destinationPath = "$toFolder$($item.FullName.Replace($fromFolder,''))"
     $destinationPath = $destinationPath.Substring(0,$destinationPath.LastIndexOf("\"))
     
+    #Working on this section
+    if ($item.PSIsContainer -and ($null -eq (Get-ChildItem -Path $item.FullName)))
+    {
+        Write-Log "Removing folder $($item.Name) as it is empty"
+        if (!$dryRun)
+        {
+            #Remove-Item $item.FullName
+            #Continue
+        }
+        else 
+        {
+            Remove-Item $item.FullName -WhatIf
+            Continue
+        }
+    }
+
+    ########
+
     if(!(Test-Path -Path $destinationPath -PathType Container))
     {
         if (!$dryRun)
